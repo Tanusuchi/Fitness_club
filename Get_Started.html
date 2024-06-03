@@ -1,0 +1,227 @@
+<!DOCTYPE html>
+<!-- This website template was created by: Christopher Deleon -->
+<html lang="en">
+
+<head>
+	<title>Become a Pro - Locaing | Forward Fitness Club</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="css/styles.css">
+	<meta name="description"
+		content="Forward Fitness Club provides a complimentary one-week trial membership. Become a Pro today to learn more.">
+	<link href="https://fonts.googleapis.com/css2?family=Francois+One&family=Roboto+Slab&display=swap" rel="stylesheet">
+	<link rel="shortcut icon" href="images/favicon.ico">
+	<link rel="icon" type="images/png" sizes="32x32" href="images/favicon-32.png">
+	<link rel="apple-touch-icon" sizes="180x180" href="images/apple-touch-icon.png">
+	<link rel="icon" sizes="192x192" href="images/android-chrome-192.png">
+	<script>
+		function calculateCalories() {
+			const height = parseFloat(document.getElementById('height').value);
+			const weight = parseFloat(document.getElementById('weight').value);
+			const age = parseFloat(document.getElementById('age').value);
+
+			// Formula for calculating Basal Metabolic Rate (BMR)
+			const bmr = 10 * weight + 6.25 * height - 5 * age + 5;
+
+			document.getElementById('result').innerText = `Your estimated daily calorie needs: ${bmr.toFixed(2)} calories`;
+		}
+		function trackFood() {
+			var foodName = document.getElementById('foodInput').value.toLowerCase();
+
+			// Replace this with your own database or API call to fetch nutrition information
+			var nutritionData = {
+				'apple': {
+					'protein': '0.3g',
+					'carbs': '25g',
+					'fat': '0.4g'
+				},
+				'banana': {
+					'protein': '1.3g',
+					'carbs': '27g',
+					'fat': '0.4g'
+				},
+				// Add more food items and their nutrition data as needed
+			};
+
+			var resultsDiv = document.getElementById('results');
+			resultsDiv.innerHTML = '';
+
+			if (nutritionData.hasOwnProperty(foodName)) {
+				var foodNutrition = nutritionData[foodName];
+				resultsDiv.innerHTML = `<p>Protein: ${foodNutrition.protein}</p><p>Carbs: ${foodNutrition.carbs}</p><p>Fat: ${foodNutrition.fat}</p>`;
+			} else {
+				resultsDiv.innerHTML = '<p>Sorry, nutrition data for this food is not available.</p>';
+			}
+		}
+
+
+		function calculateBMI() {
+			const weight = document.getElementById("weight1").value;
+			const height = document.getElementById("height1").value /100; // Convert cm to meters
+
+			console.log(weight, height);
+
+			if (weight === "" || height === "") {
+				alert("Please enter both weight and height.");
+				return;
+			}
+
+			const bmi = weight / Math.pow(height, 2);
+			const bmiRounded = bmi.toFixed(1);
+
+			let resultText = "Your BMI is " + bmiRounded;
+
+			if (bmi < 18.5) {
+				resultText += " (Underweight)";
+			} else if (bmi >= 18.5 && bmi <= 25) {
+				resultText += " (Normal)";
+			} else if (bmi >= 25 && bmi <= 30) {
+				resultText += " (Overweight)";
+			} else {
+				resultText += " (Obese)";
+			}
+
+			document.getElementById("result1").innerText = resultText;
+		}
+
+
+	</script>
+</head>
+
+<body>
+
+	<div id="container">
+
+		<!-- Mobile Nav -->
+		<nav class="mobile-nav">
+			<div id="menu-links">
+				<a href="index.html">Home</a>
+				<a href="about.html">About Us</a>
+				<a href="classes.html">Classes</a>
+				<a href="nutrition.html">Nutrition</a>
+				<li><a href="#" onclick="showModal()">Become a Pro</a></li>
+			</div>
+			<a class="menu-icon" onclick="hamburger()">
+				<div>&#9776;</div>
+			</a>
+		</nav>
+
+		<!-- Use the header area for the website name or logo -->
+		<header id="ffc-logo">
+			<a href="index.html"><img src="images/forward-fitness-logo.png" alt="Forward Fitness Club logo"></a>
+		</header>
+
+		<!-- Tablet, Desktop Nav -->
+		<nav class="tablet-desktop">
+			<ul>
+				<li><a href="index.html">Home</a></li>
+				<li><a href="about.html">About Us</a></li>
+				<li><a href="classes.html">Classes</a></li>
+				<li><a href="nutrition.html">Nutrition</a></li>
+				<li><a href="contact.html">Become A Pro</a></li>
+			</ul>
+		</nav>
+
+		<!-- Use the main area to add the main content of the webpage -->
+		<main>
+
+			<div id="modal" class="modal">
+				<div class="modal-content">
+					<div class="card1">
+						<h3>Free</h3>
+						<p>7 Day Free Trial</p>
+						<ul style="list-style: none;">
+							<li>Access to equipment</li>
+							<li>Group Training Classes</li>
+						</ul>
+						<button>Get Now</button>
+					</div>
+					<div class="card2">
+						<h3>Pro</h3>
+						<p>$100/Month</p>
+						<ul style="list-style: none;">
+							<li>Access to equipment</li>
+							<li>Group Training Classes</li>
+							<li>Personal Training</li>
+							<li>Nutrition Planning</li>
+						</ul>
+						<button>Get Now</button>
+					</div>
+					<span class="close">&times;</span>
+				</div>
+			</div>
+
+			<div id="form">
+
+				<div style="display: flex; justify-content: center; align-items: center; gap: 20px;">
+
+					<div class="calculator">
+						<h2>Calorie Calculator</h2>
+						<div>
+							<label for="height">Height (cm):</label>
+							<input type="number" id="height" placeholder="Enter your height">
+						</div>
+						<div>
+							<label for="weight">Weight (kg):</label>
+							<input type="number" id="weight" placeholder="Enter your weight">
+						</div>
+						<div>
+							<label for="age">Age:</label>
+							<input type="number" id="age" placeholder="Enter your age">
+						</div>
+						<button onclick="calculateCalories()">Calculate</button>
+						<div id="result"></div>
+					</div>
+
+					<div class="calculator">
+						<h1>Food Tracker</h1>
+						<input type="text" id="foodInput" placeholder="Enter food name">
+						<button onclick="trackFood()">Track</button>
+						<div id="results"></div>
+					</div>
+
+					<form id="bmi-form">
+					<h1>BMI Calculator</h1>
+						<div>
+							<label for="weight">Weight (kg):</label>
+							<input type="number" id="weight1" name="weight" required>
+						</div>
+						<br>
+						<div>
+							<label for="height">Height (cm):</label>
+							<input type="number" id="height1" name="height" required>
+						</div>
+						<br>
+						<div>
+							<button type="button" onclick="calculateBMI()">Calculate BMI</button>
+						</div>
+						<div id="result1"></div>
+					</form>
+				</div>
+
+		</main>
+
+		<!-- Use the footer area to add webpage footer content -->
+		<footer>
+
+			<div class="copyright">
+				<p>&copy; Copyright 2021. All Rights Reserved.</p>
+				<p><a href="mailto:forwardfitness@club.net">forwardfitness@club.net</a></p>
+			</div>
+
+			<div class="social">
+				<a href="https://www.facebook.com/fwdfitclub" target="_blank"><img src="images/facebook-logo.png"
+						alt="black and white Facebook logo"></a>
+				<a href="https://twitter.com/fwdfitclub" target="_blank"><img src="images/twitter-logo.png"
+						alt="black and white Twitter logo"></a>
+			</div>
+
+		</footer>
+
+	</div>
+
+	<script src="scripts/script.js" async></script>
+
+</body>
+
+</html>
